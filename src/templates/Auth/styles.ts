@@ -5,15 +5,13 @@ import * as LogoStyles from 'components/Logo/styles'
 import media from 'styled-media-query'
 
 export const Wrapper = styled.div`
-  ${({ theme }) => css`
-    display: grid;
-    grid-template-columns: 1fr;
-    height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  height: 100vh;
 
-    ${media.greaterThan('medium')`
+  ${media.greaterThan('medium')`
     grid-template-columns: 1fr 1fr;
     `}
-  `}
 `
 
 export const BannerBlock = styled.div`

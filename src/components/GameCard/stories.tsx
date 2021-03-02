@@ -1,5 +1,4 @@
 import { Story, Meta } from '@storybook/react/types-6-0'
-import { Height } from '@styled-icons/material-outlined'
 import GameCard, { GameCardProps } from '.'
 
 export default {

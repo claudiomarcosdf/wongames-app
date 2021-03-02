@@ -3,9 +3,7 @@ import Heading from 'components/Heading'
 import TextField from 'components/TextField'
 import * as S from './styles'
 
-export type FormProfileProps = {}
-
-const FormProfile = ({}: FormProfileProps) => (
+const FormProfile = () => (
   <>
     <Heading size="small" lineBottom color="black">
       My profile

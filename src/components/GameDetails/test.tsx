@@ -14,7 +14,7 @@ const props: GameDetailsProps = {
 
 describe('<GameDetails />', () => {
   it('should render the blocks', () => {
-    const { container } = renderWithTheme(<GameDetails {...props} />)
+    renderWithTheme(<GameDetails {...props} />)
 
     expect(
       screen.getByRole('heading', { name: /developer/i })

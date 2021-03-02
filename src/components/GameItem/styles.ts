@@ -13,9 +13,8 @@ export const Wrapper = styled.div`
 `
 
 export const GameContent = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-  `}
+  display: flex;
+  width: 100%;
 `
 
 export const ImageBox = styled.div`
