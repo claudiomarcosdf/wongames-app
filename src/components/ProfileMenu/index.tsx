@@ -1,10 +1,10 @@
+import Link from 'next/link'
 import {
   AccountCircle,
   CreditCard,
   ExitToApp,
   FormatListBulleted
 } from '@styled-icons/material-outlined'
-import Link from 'next/link'
 import * as S from './styles'
 
 export type ProfileMenuProps = {

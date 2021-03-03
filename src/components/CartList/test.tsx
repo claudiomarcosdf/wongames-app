@@ -1,12 +1,11 @@
-import { screen } from '@testing-library/react'
-import { renderWithTheme } from 'utils/tests/helpers'
+import { render, screen } from 'utils/test-utils'
 
 import CartList from '.'
 import mockItems from './mock'
 
 describe('<CartList />', () => {
   it('should render the cart list', () => {
-    const { container } = renderWithTheme(
+    const { container } = render(
       <CartList items={mockItems} total="R$ 330,00" />
     )
 
@@ -17,7 +16,7 @@ describe('<CartList />', () => {
   })
 
   it('should render the button', () => {
-    renderWithTheme(<CartList items={mockItems} total="R$ 330,00" hasButton />)
+    render(<CartList items={mockItems} total="R$ 330,00" hasButton />)
 
     expect(screen.getByText(/buy it now/i)).toBeInTheDocument()
   })

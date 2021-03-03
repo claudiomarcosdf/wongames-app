@@ -61,7 +61,7 @@ const GameCard = ({
 
       <S.FavButton role="button" onClick={onFav}>
         {favorite ? (
-          <Favorite aria-label="Remove from Whishlist" />
+          <Favorite aria-label="Remove from Wishlist" />
         ) : (
           <FavoriteBorder aria-label="Add to Wishlist " />
         )}
