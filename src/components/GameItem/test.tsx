@@ -1,6 +1,6 @@
 import { render, screen } from 'utils/test-utils'
-// import userEvent from '@testing-library/user-event'
-// import { CartContextDefaultValues } from 'hooks/use-cart'
+import { CartContextDefaultValues } from 'hooks/use-cart'
+import userEvent from '@testing-library/user-event'
 
 import GameItem from '.'
 
@@ -27,30 +27,29 @@ describe('<GameItem />', () => {
     expect(screen.getByText('R$ 215,00')).toBeInTheDocument()
   })
 
-  // it('should render remove if the item is inside the cart and call remove', () => {
-  //   const cartProviderProps = {
-  //     ...CartContextDefaultValues,
-  //     isInCart: () => true,
-  //     removeFromCart: jest.fn()
-  //   }
-  //   render(<GameItem {...props} />, { cartProviderProps })
+  it('should render remove if the item is inside the cart and call remove', () => {
+    const cartProviderProps = {
+      ...CartContextDefaultValues,
+      isInCart: () => true,
+      removeFromCart: jest.fn()
+    }
+    render(<GameItem {...props} />, { cartProviderProps })
 
-  //   const removeLink = screen.getByText(/remove/i)
-  //   expect(removeLink).toBeInTheDocument()
+    const removeLink = screen.getByText(/remove/i)
+    expect(removeLink).toBeInTheDocument()
 
-  //   userEvent.click(removeLink)
-  //   expect(cartProviderProps.removeFromCart).toHaveBeenCalledWith('1')
-  // })
+    userEvent.click(removeLink)
+    expect(cartProviderProps.removeFromCart).toHaveBeenCalledWith('1')
+  })
 
-  // it('should render the item with download link', () => {
-  //   const downloadLink = 'https://link'
+  it('should render the item with download link', () => {
+    const downloadLink = 'https://link'
 
-  //   render(<GameItem {...props} downloadLink={downloadLink} />)
-
-  //   expect(
-  //     screen.getByRole('link', { name: `Get ${props.title} here` })
-  //   ).toHaveAttribute('href', downloadLink)
-  // })
+    render(<GameItem {...props} downloadLink={downloadLink} />)
+    expect(
+      screen.getByRole('link', { name: `Get ${props.title} here` })
+    ).toHaveAttribute('href', downloadLink)
+  })
 
   it('should render the payment info', () => {
     const paymentInfo = {
