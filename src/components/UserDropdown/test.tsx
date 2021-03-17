@@ -17,6 +17,8 @@ describe('<UserDropdown />', () => {
 
     expect(screen.getByRole('link', { name: /profile/i })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /wishlist/i })).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /sign out/i })).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: /sign out/i })
+    ).toBeInTheDocument()
   })
 })
