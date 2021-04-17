@@ -1,5 +1,5 @@
-import { setContext } from '@apollo/client/link/context'
 import { ApolloClient, HttpLink, NormalizedCacheObject } from '@apollo/client'
+import { setContext } from '@apollo/client/link/context'
 import { useMemo } from 'react'
 import apolloCache from './apolloCache'
 import { Session } from 'next-auth/client'
@@ -28,27 +28,27 @@ export function initializeApollo(
   initialState = null,
   session?: Session | null
 ) {
-  //verifica se já existe uma instância, para não criar outra
+  // serve para verificar se já existe uma instância, para não criar outra
   const apolloClientGlobal = apolloClient ?? createApolloClient(session)
 
-  //recuperando dados do cache
+  // se a página usar o apolloClient no lado client
+  // hidratamos o estado inicial aqui
   if (initialState) {
     apolloClientGlobal.cache.restore(initialState)
   }
 
-  //sempre inicializando no SSR com o cache limpo
+  // sempre inicializando no SSR com cache limpo
   if (typeof window === 'undefined') return apolloClientGlobal
+  // cria o apolloClient se estiver no client side
   apolloClient = apolloClient ?? apolloClientGlobal
 
   return apolloClient
 }
 
-//Só muda se o initialState mudar
 export function useApollo(initialState = null, session?: Session) {
   const store = useMemo(() => initializeApollo(initialState, session), [
     initialState,
     session
   ])
-
   return store
 }
