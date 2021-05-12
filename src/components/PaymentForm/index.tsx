@@ -1,7 +1,8 @@
+import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { StripeCardElementChangeEvent } from '@stripe/stripe-js'
+import { PaymentIntent, StripeCardElementChangeEvent } from '@stripe/stripe-js'
 import { ShoppingCart, ErrorOutline } from '@styled-icons/material-outlined'
 
 import Button from 'components/Button'
@@ -10,7 +11,7 @@ import { FormLoading } from 'components/Form'
 
 import * as S from './styles'
 import { useCart } from 'hooks/use-cart'
-import { createPaymentIntent } from 'utils/stripe/methods'
+import { createPayment, createPaymentIntent } from 'utils/stripe/methods'
 import { Session } from 'next-auth/client'
 
 type PaymentFormProps = {
@@ -59,6 +60,16 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     setDisabled(event.empty)
   }
 
+  const saveOrder = async (paymentIntent?: PaymentIntent) => {
+    const data = await createPayment({
+      items,
+      paymentIntent,
+      token: session.jwt
+    })
+
+    return data
+  }
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault()
     setLoading(true)
@@ -66,6 +77,8 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
     //se freeGames
     if (freeGames) {
       //salva no banco
+      //bater na API /orders
+      saveOrder()
       //redireciona p/ success
       push('/success')
       return
@@ -85,6 +98,8 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
       setLoading(false)
 
       //salvar a compra no banco do Strapi
+      //bater na API /orders
+      saveOrder(payload.paymentIntent)
       //redirecionar p/ pagina de sucesso!
       push('/success')
     }
@@ -99,7 +114,7 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
           </Heading>
 
           {freeGames ? (
-            <S.FreeGames>Only free games, click by and enjoy!</S.FreeGames>
+            <S.FreeGames>Only free games, click buy and enjoy!</S.FreeGames>
           ) : (
             <CardElement
               options={{
@@ -118,9 +133,11 @@ const PaymentForm = ({ session }: PaymentFormProps) => {
           )}
         </S.Body>
         <S.Footer>
-          <Button as="a" fullWidth minimal>
-            Continue shopping
-          </Button>
+          <Link href="/" passHref>
+            <Button as="a" fullWidth minimal>
+              Continue shopping
+            </Button>
+          </Link>
           <Button
             fullWidth
             icon={loading ? <FormLoading /> : <ShoppingCart />}

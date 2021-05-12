@@ -1,3 +1,4 @@
+import '../.jest/next-image.mock'
 import { ThemeProvider } from 'styled-components'
 import { CartContext, CartContextDefaultValues } from 'hooks/use-cart'
 import { addDecorator } from '@storybook/react'

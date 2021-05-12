@@ -3,6 +3,7 @@ import {
   MUTATION_UPDATE_WISHLIST
 } from 'graphql/mutations/wishlist'
 import { QUERY_WISHLIST } from 'graphql/queries/wishlist'
+
 const gameMock = (id: string) => ({
   id,
   name: `Sample Game ${id}`,
@@ -14,6 +15,7 @@ const gameMock = (id: string) => ({
   },
   __typename: 'Game'
 })
+
 export const wishlistMock = {
   request: {
     query: QUERY_WISHLIST,
@@ -33,6 +35,7 @@ export const wishlistMock = {
     }
   }
 }
+
 export const createWishlistMock = {
   request: {
     query: MUTATION_CREATE_WISHLIST,
@@ -56,6 +59,7 @@ export const createWishlistMock = {
     }
   }
 }
+
 export const updateWishlistMock = {
   request: {
     query: MUTATION_UPDATE_WISHLIST,

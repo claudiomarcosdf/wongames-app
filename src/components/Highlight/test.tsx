@@ -1,4 +1,5 @@
 import { render, screen } from 'utils/test-utils'
+
 import Highlight from '.'
 import * as S from './styles'
 
@@ -9,6 +10,7 @@ const props = {
   buttonLabel: 'Buy now',
   buttonLink: '/rdr2'
 }
+
 describe('<Highlight />', () => {
   it('should render headings and button', () => {
     const { container } = render(<Highlight {...props} />)
@@ -16,6 +18,7 @@ describe('<Highlight />', () => {
     expect(
       screen.getByRole('heading', { name: /heading 1/i })
     ).toBeInTheDocument()
+
     expect(
       screen.getByRole('heading', { name: /heading 2/i })
     ).toBeInTheDocument()
@@ -26,11 +29,20 @@ describe('<Highlight />', () => {
   })
 
   it('should render background image', () => {
-    const { container } = render(<Highlight {...props} />)
+    render(<Highlight {...props} />)
 
-    expect(container.firstChild).toHaveStyle({
-      backgroundImage: `url(${props.backgroundImage})`
-    })
+    expect(
+      screen.getByRole('img', { name: `${props.title} background` })
+    ).toHaveAttribute('src', `${props.backgroundImage}`)
+  })
+
+  it('should render float image', () => {
+    render(<Highlight {...props} floatImage="/float-image.png" />)
+
+    expect(screen.getByRole('img', { name: props.title })).toHaveAttribute(
+      'src',
+      '/float-image.png'
+    )
   })
 
   it('should render align right by default', () => {
